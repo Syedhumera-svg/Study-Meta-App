@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StudyMate – Smart Student Study Planner</title>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Mobile overlay (click to close sidebar on mobile) -->
+<div class="overlay" id="overlay"></div>
+
+<div class="app">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="brand-text">
+        <h1>StudyMate</h1>
+        <span>Study Planner</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-link active" data-page="dashboard"><i class="fa-solid fa-house"></i><span>Dashboard</span></button>
+      <button class="nav-link" data-page="schedule"><i class="fa-solid fa-calendar-days"></i><span>Schedule</span></button>
+      <button class="nav-link" data-page="subjects"><i class="fa-solid fa-book"></i><span>Subjects</span></button>
+      <button class="nav-link" data-page="tasks"><i class="fa-solid fa-list-check"></i><span>Tasks</span></button>
+      <button class="nav-link" data-page="timer"><i class="fa-solid fa-stopwatch"></i><span>Study Timer</span></button>
+      <button class="nav-link" data-page="progress"><i class="fa-solid fa-chart-line"></i><span>Progress</span></button>
+      <button class="nav-link" data-page="settings"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="streak-mini">
+        <i class="fa-solid fa-fire"></i>
+        <span id="sidebarStreak">0 day streak</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <div class="main">
+
+    <!-- HEADER -->
+    <header class="topbar">
+      <button class="icon-btn menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="globalSearch" placeholder="Search subjects, tasks, sessions..." />
+      </div>
+
+      <div class="topbar-right">
+        <button class="icon-btn" id="themeToggle" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+        <button class="icon-btn" id="notifBtn" title="Notifications">
+          <i class="fa-solid fa-bell"></i>
+          <span class="dot" id="notifDot" style="display:none;"></span>
+        </button>
+        <div class="profile" id="profileBtn" title="Change your avatar">
+          <div class="avatar" id="avatarWrap">
+            <img id="profileAvatarImg" class="avatar-img" src="" alt="avatar" />
+          </div>
+          <span class="profile-name" id="profileNameDisplay">Student</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- notification panel -->
+    <div class="notif-panel" id="notifPanel">
+      <div class="notif-panel-header">
+        <span>Notifications</span>
+        <button id="clearNotifs">Clear</button>
+      </div>
+      <ul id="notifList"><li class="empty-notif">No notifications yet.</li></ul>
+    </div>
+
+    <main class="content" id="content">
+
+      <!-- ============ DASHBOARD PAGE ============ -->
+      <section class="page active" id="page-dashboard">
+        <div class="hero-banner">
+          <div class="hero-text">
+            <h2 id="greetingText">Good Morning, Student 👋</h2>
+            <p class="muted" id="todayDate">Today</p>
+            <div class="quick-actions">
+              <button class="btn btn-primary" data-quick="task"><i class="fa-solid fa-plus"></i> Add Task</button>
+              <button class="btn btn-outline" data-quick="session"><i class="fa-solid fa-plus"></i> Add Session</button>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="130" cy="100" r="88" fill="rgba(255,255,255,0.14)"/>
+              <circle cx="130" cy="100" r="60" fill="rgba(255,255,255,0.16)"/>
+              <rect x="70" y="95" width="70" height="55" rx="6" fill="#fff" opacity="0.95"/>
+              <rect x="70" y="95" width="70" height="14" rx="6" fill="#a29bfe"/>
+              <rect x="82" y="120" width="46" height="6" rx="3" fill="#dfe0f5"/>
+              <rect x="82" y="132" width="30" height="6" rx="3" fill="#dfe0f5"/>
+              <circle cx="176" cy="70" r="20" fill="#ffeaa7"/>
+              <path d="M176 55 L176 45 M188 60 L196 52 M164 60 L156 52" stroke="#ffeaa7" stroke-width="4" stroke-linecap="round"/>
+              <rect x="46" y="60" width="26" height="34" rx="4" fill="#74b9ff"/>
+              <rect x="46" y="60" width="26" height="8" rx="4" fill="#0984e3"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card grad-1">
+            <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+            <div>
+              <h3 id="statStudyHours">0h</h3>
+              <p>Study Hours (Today)</p>
+            </div>
+          </div>
+          <div class="stat-card grad-2">
+            <div class="stat-icon"><i class="fa-solid fa-check-double"></i></div>
+            <div>
+              <h3 id="statTasksDone">0</h3>
+              <p>Tasks Completed</p>
+            </div>
+          </div>
+          <div class="stat-card grad-3">
+            <div class="stat-icon"><i class="fa-solid fa-book-open"></i></div>
+            <div>
+              <h3 id="statSubjects">0</h3>
+              <p>Total Subjects</p>
+            </div>
+          </div>
+          <div class="stat-card grad-4">
+            <div class="stat-icon"><i class="fa-solid fa-gauge-high"></i></div>
+            <div>
+              <h3 id="statProgress">0%</h3>
+              <p>Weekly Progress</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div class="card">
+            <div class="card-head">
+              <h3><i class="fa-solid fa-list-check"></i> Today's Tasks</h3>
+            </div>
+            <div id="todayTasksList" class="mini-list"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <h3><i class="fa-solid fa-calendar-check"></i> Upcoming Sessions</h3>
+            </div>
+            <div id="upcomingSessionsList" class="mini-list"></div>
+          </div>
+
+          <div class="card streak-card">
+            <div class="card-head">
+              <h3><i class="fa-solid fa-fire"></i> Daily Study Streak</h3>
+            </div>
+            <div class="streak-display">
+              <span id="streakCount">0</span>
+              <p>days in a row</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SCHEDULE PAGE ============ -->
+      <section class="page" id="page-schedule">
+        <div class="page-head">
+          <div><h2>Study Schedule</h2><p class="muted">Plan your study sessions</p></div>
+          <button class="btn btn-primary" id="addSessionBtn"><i class="fa-solid fa-plus"></i> Add Session</button>
+        </div>
+        <div class="card">
+          <div id="scheduleList" class="table-wrap"></div>
+        </div>
+      </section>
+
+      <!-- ============ SUBJECTS PAGE ============ -->
+      <section class="page" id="page-subjects">
+        <div class="page-head">
+          <div><h2>Subjects</h2><p class="muted">Manage your subjects and progress</p></div>
+          <button class="btn btn-primary" id="addSubjectBtn"><i class="fa-solid fa-plus"></i> Add Subject</button>
+        </div>
+        <div class="grid-cards" id="subjectsGrid"></div>
+      </section>
+
+      <!-- ============ TASKS PAGE ============ -->
+      <section class="page" id="page-tasks">
+        <div class="page-head">
+          <div><h2>Tasks</h2><p class="muted">Stay on top of your to-do list</p></div>
+          <button class="btn btn-primary" id="addTaskBtn"><i class="fa-solid fa-plus"></i> Add Task</button>
+        </div>
+
+        <div class="card">
+          <div class="task-toolbar">
+            <div class="filter-tabs">
+              <button class="filter-tab active" data-filter="all">All</button>
+              <button class="filter-tab" data-filter="pending">Pending</button>
+              <button class="filter-tab" data-filter="completed">Completed</button>
+            </div>
+            <div class="task-progress-mini">
+              <span id="taskCompletionText">0% complete</span>
+              <div class="progress-bar"><div class="progress-fill" id="taskCompletionBar"></div></div>
+            </div>
+          </div>
+          <div id="tasksList" class="mini-list"></div>
+        </div>
+      </section>
+
+      <!-- ============ TIMER PAGE ============ -->
+      <section class="page" id="page-timer">
+        <div class="page-head">
+          <div><h2>Study Timer</h2><p class="muted">Stay focused with the Pomodoro technique</p></div>
+        </div>
+
+        <div class="timer-wrap">
+          <div class="card timer-card">
+            <div class="timer-mode-label" id="timerModeLabel">Study Session</div>
+            <div class="timer-circle">
+              <svg viewBox="0 0 220 220">
+                <circle class="ring-bg" cx="110" cy="110" r="100"></circle>
+                <circle class="ring-fg" id="timerRing" cx="110" cy="110" r="100"></circle>
+              </svg>
+              <div class="timer-time" id="timerDisplay">25:00</div>
+            </div>
+            <div class="timer-controls">
+              <button class="btn btn-primary" id="timerStartBtn"><i class="fa-solid fa-play"></i> Start</button>
+              <button class="btn btn-outline" id="timerPauseBtn"><i class="fa-solid fa-pause"></i> Pause</button>
+              <button class="btn btn-outline" id="timerResetBtn"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+            </div>
+            <div class="timer-stats">
+              <div><span id="sessionsCompleted">0</span><p>Sessions Completed</p></div>
+              <div><span id="timerTotalMinutes">0m</span><p>Total Focus Time Today</p></div>
+            </div>
+          </div>
+
+          <div class="card timer-settings">
+            <h3><i class="fa-solid fa-sliders"></i> Timer Settings</h3>
+            <label>Study Duration (minutes)</label>
+            <input type="number" id="studyDurationInput" min="1" max="120" value="25" />
+            <label>Break Duration (minutes)</label>
+            <input type="number" id="breakDurationInput" min="1" max="60" value="5" />
+            <button class="btn btn-primary" id="saveTimerSettingsBtn">Save Settings</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PROGRESS PAGE ============ -->
+      <section class="page" id="page-progress">
+        <div class="page-head">
+          <div><h2>Progress</h2><p class="muted">Track your weekly performance</p></div>
+        </div>
+
+        <div class="progress-grid">
+          <div class="card">
+            <h3><i class="fa-solid fa-chart-column"></i> Weekly Study Hours</h3>
+            <div class="bar-chart" id="weeklyChart"></div>
+          </div>
+
+          <div class="card">
+            <h3><i class="fa-solid fa-bullseye"></i> Weekly Goal</h3>
+            <div class="goal-ring-wrap">
+              <div class="goal-ring" id="goalRing">
+                <span id="goalPercentText">0%</span>
+              </div>
+              <p id="goalDetailText">0 / 0 hours this week</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3><i class="fa-solid fa-book"></i> Subject Progress</h3>
+            <div id="progressSubjectsList" class="mini-list"></div>
+          </div>
+
+          <div class="card">
+            <h3><i class="fa-solid fa-fire"></i> Study Streak</h3>
+            <div class="streak-display">
+              <span id="progressStreakCount">0</span>
+              <p>days in a row</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SETTINGS PAGE ============ -->
+      <section class="page" id="page-settings">
+        <div class="page-head">
+          <div><h2>Settings</h2><p class="muted">Customize your StudyMate experience</p></div>
+        </div>
+
+        <div class="card settings-card">
+          <div class="setting-row">
+            <div>
+              <h4>Dark Mode</h4>
+              <p class="muted">Switch between light and dark theme</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="darkModeSwitch">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h4>Weekly Study Goal (hours)</h4>
+              <p class="muted">Used to calculate your weekly progress</p>
+            </div>
+            <input type="number" id="weeklyGoalInput" min="1" max="100" class="small-input" />
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h4>Enable Notifications</h4>
+              <p class="muted">Get notified for reminders and timer alerts</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notifSwitch">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h4>Clear All Data</h4>
+              <p class="muted">Removes tasks, subjects, sessions and history</p>
+            </div>
+            <button class="btn btn-danger" id="clearDataBtn">Clear Data</button>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <h4>Reset Application</h4>
+              <p class="muted">Restore StudyMate to its default state</p>
+            </div>
+            <button class="btn btn-danger" id="resetAppBtn">Reset App</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ================= MODAL: TASK ================= -->
+<div class="modal-backdrop" id="taskModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="taskModalTitle">Add Task</h3>
+      <button class="icon-btn close-modal" data-close="taskModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="taskForm">
+      <input type="hidden" id="taskId" />
+      <label>Task Title *</label>
+      <input type="text" id="taskTitle" placeholder="e.g. Complete DBMS assignment" required />
+
+      <label>Subject / Category</label>
+      <select id="taskSubject"><option value="">General</option></select>
+
+      <label>Due Date *</label>
+      <input type="date" id="taskDueDate" required />
+
+      <label>Priority</label>
+      <select id="taskPriority">
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+      </select>
+
+      <p class="form-error" id="taskFormError"></p>
+      <button type="submit" class="btn btn-primary full-width">Save Task</button>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODAL: SUBJECT ================= -->
+<div class="modal-backdrop" id="subjectModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="subjectModalTitle">Add Subject</h3>
+      <button class="icon-btn close-modal" data-close="subjectModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="subjectForm">
+      <input type="hidden" id="subjectId" />
+      <label>Subject Name *</label>
+      <input type="text" id="subjectName" placeholder="e.g. JavaScript" required />
+
+      <label>Teacher Name</label>
+      <input type="text" id="subjectTeacher" placeholder="e.g. Prof. Sharma" />
+
+      <label>Subject Color</label>
+      <input type="color" id="subjectColor" value="#6c5ce7" />
+
+      <label>Total Study Hours Target</label>
+      <input type="number" id="subjectTotalHours" min="1" value="20" required />
+
+      <label>Study Hours Completed</label>
+      <input type="number" id="subjectStudiedHours" min="0" value="0" required />
+
+      <p class="form-error" id="subjectFormError"></p>
+      <button type="submit" class="btn btn-primary full-width">Save Subject</button>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MODAL: SESSION ================= -->
+<div class="modal-backdrop" id="sessionModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="sessionModalTitle">Add Study Session</h3>
+      <button class="icon-btn close-modal" data-close="sessionModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="sessionForm">
+      <input type="hidden" id="sessionId" />
+      <label>Subject *</label>
+      <select id="sessionSubject" required><option value="">Select a subject</option></select>
+
+      <label>Date *</label>
+      <input type="date" id="sessionDate" required />
+
+      <div class="two-col">
+        <div>
+          <label>Start Time *</label>
+          <input type="time" id="sessionStart" required />
+        </div>
+        <div>
+          <label>End Time *</label>
+          <input type="time" id="sessionEnd" required />
+        </div>
+      </div>
+
+      <label>Topic</label>
+      <input type="text" id="sessionTopic" placeholder="e.g. Arrays & Loops" />
+
+      <label>Priority</label>
+      <select id="sessionPriority">
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+      </select>
+
+      <p class="form-error" id="sessionFormError"></p>
+      <button type="submit" class="btn btn-primary full-width">Save Session</button>
+    </form>
+  </div>
+</div>
+
+<!-- ================= CONFIRM MODAL ================= -->
+<div class="modal-backdrop" id="confirmModal">
+  <div class="modal small">
+    <div class="modal-head">
+      <h3>Please Confirm</h3>
+      <button class="icon-btn close-modal" data-close="confirmModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <p id="confirmMessage" class="confirm-message">Are you sure?</p>
+    <div class="confirm-actions">
+      <button class="btn btn-outline" data-close="confirmModal">Cancel</button>
+      <button class="btn btn-danger" id="confirmActionBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL: AVATAR PICKER ================= -->
+<div class="modal-backdrop" id="avatarModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Choose Your Avatar</h3>
+      <button class="icon-btn close-modal" data-close="avatarModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <label>Your Display Name</label>
+    <input type="text" id="profileNameInput" placeholder="e.g. Priya" maxlength="20" />
+
+    <label>Pick a Generated Avatar</label>
+    <div class="avatar-grid" id="avatarGrid"></div>
+    <button type="button" class="btn btn-outline full-width" id="randomizeAvatarBtn">
+      <i class="fa-solid fa-shuffle"></i> Shuffle More Options
+    </button>
+
+    <label>Or Upload Your Own Photo</label>
+    <input type="file" id="avatarUpload" accept="image/*" />
+
+    <p class="form-error" id="avatarFormError"></p>
+    <button type="button" class="btn btn-primary full-width" id="saveAvatarBtn">Save Avatar</button>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
