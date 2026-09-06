@@ -106,14 +106,12 @@ Study-Meta-App/
 1. Download or clone this repository.
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/Study-Meta-App.git
+git clone https://github.com/Syedhumera-svg/Study-Meta-App.git
 ```
 
 2. Open the project folder.
 
 3. Open `index.html` in your browser.
-
-That's it! 🎉
 
 ---
 
@@ -131,25 +129,11 @@ The application will open in your browser.
 ## 🌐 Live Demo
 
 🚀 **Live Demo:**
-`https://YOUR-USERNAME.github.io/Study-Meta-App/`
-
-> Replace `YOUR-USERNAME` with your GitHub username after enabling GitHub Pages.
-
----
+`https://Syedhumera-svg.github.io/Study-Meta-App/`
 
 ## 📸 Screenshots
 
-Add screenshots of your application here to make the repository more attractive.
-
-Example:
-
-```markdown
-![Study Meta App Dashboard](screenshots/dashboard.png)
-```
-
-You can create a `screenshots` folder and add your application screenshots there.
-
-Recommended screenshots:
+screenshots of my application here.
 
 * Dashboard
 * Study Timer
