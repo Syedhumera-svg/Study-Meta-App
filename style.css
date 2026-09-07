@@ -1,11 +1,8 @@
-/* =========================================================
-   STUDYMATE STYLESHEET
+STUDYMATE STYLESHEET
    Sections: Variables -> Reset -> Layout -> Sidebar -> Topbar
    -> Cards & Stats -> Forms & Modals -> Timer -> Progress
    -> Settings -> Toasts -> Responsive
-   ========================================================= */
-
-/* ---------- THEME VARIABLES (Light mode default) ---------- */
+ 
 :root {
   --bg: #f3f5fb;
   --surface: #ffffff;
