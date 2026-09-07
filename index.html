@@ -4,8 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>StudyMate – Smart Student Study Planner</title>
-
-<!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,8 +17,6 @@
 <div class="overlay" id="overlay"></div>
 
 <div class="app">
-
-  <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
@@ -48,7 +44,6 @@
     </div>
   </aside>
 
-  <!-- ================= MAIN ================= -->
   <div class="main">
 
     <!-- HEADER -->
@@ -85,8 +80,6 @@
     </div>
 
     <main class="content" id="content">
-
-      <!-- ============ DASHBOARD PAGE ============ -->
       <section class="page active" id="page-dashboard">
         <div class="hero-banner">
           <div class="hero-text">
@@ -170,8 +163,7 @@
           </div>
         </div>
       </section>
-
-      <!-- ============ SCHEDULE PAGE ============ -->
+      
       <section class="page" id="page-schedule">
         <div class="page-head">
           <div><h2>Study Schedule</h2><p class="muted">Plan your study sessions</p></div>
@@ -182,7 +174,6 @@
         </div>
       </section>
 
-      <!-- ============ SUBJECTS PAGE ============ -->
       <section class="page" id="page-subjects">
         <div class="page-head">
           <div><h2>Subjects</h2><p class="muted">Manage your subjects and progress</p></div>
@@ -191,7 +182,6 @@
         <div class="grid-cards" id="subjectsGrid"></div>
       </section>
 
-      <!-- ============ TASKS PAGE ============ -->
       <section class="page" id="page-tasks">
         <div class="page-head">
           <div><h2>Tasks</h2><p class="muted">Stay on top of your to-do list</p></div>
@@ -214,7 +204,6 @@
         </div>
       </section>
 
-      <!-- ============ TIMER PAGE ============ -->
       <section class="page" id="page-timer">
         <div class="page-head">
           <div><h2>Study Timer</h2><p class="muted">Stay focused with the Pomodoro technique</p></div>
@@ -251,8 +240,7 @@
           </div>
         </div>
       </section>
-
-      <!-- ============ PROGRESS PAGE ============ -->
+      
       <section class="page" id="page-progress">
         <div class="page-head">
           <div><h2>Progress</h2><p class="muted">Track your weekly performance</p></div>
@@ -288,8 +276,7 @@
           </div>
         </div>
       </section>
-
-      <!-- ============ SETTINGS PAGE ============ -->
+      
       <section class="page" id="page-settings">
         <div class="page-head">
           <div><h2>Settings</h2><p class="muted">Customize your StudyMate experience</p></div>
@@ -347,8 +334,7 @@
     </main>
   </div>
 </div>
-
-<!-- ================= MODAL: TASK ================= -->
+  
 <div class="modal-backdrop" id="taskModal">
   <div class="modal">
     <div class="modal-head">
@@ -378,8 +364,6 @@
     </form>
   </div>
 </div>
-
-<!-- ================= MODAL: SUBJECT ================= -->
 <div class="modal-backdrop" id="subjectModal">
   <div class="modal">
     <div class="modal-head">
@@ -409,7 +393,6 @@
   </div>
 </div>
 
-<!-- ================= MODAL: SESSION ================= -->
 <div class="modal-backdrop" id="sessionModal">
   <div class="modal">
     <div class="modal-head">
@@ -450,8 +433,6 @@
     </form>
   </div>
 </div>
-
-<!-- ================= CONFIRM MODAL ================= -->
 <div class="modal-backdrop" id="confirmModal">
   <div class="modal small">
     <div class="modal-head">
@@ -466,7 +447,6 @@
   </div>
 </div>
 
-<!-- ================= MODAL: AVATAR PICKER ================= -->
 <div class="modal-backdrop" id="avatarModal">
   <div class="modal">
     <div class="modal-head">
